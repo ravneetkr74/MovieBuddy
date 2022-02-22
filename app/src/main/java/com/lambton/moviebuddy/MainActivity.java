@@ -8,8 +8,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.google.android.material.navigation.NavigationView;
 import com.lambton.moviebuddy.ui.Adapter.DrawerAdapter;
+import com.lambton.moviebuddy.ui.BookTicketsFragment;
 import com.lambton.moviebuddy.ui.MapsFragment;
 import com.lambton.moviebuddy.ui.Model.DrawerModel;
+import com.lambton.moviebuddy.ui.ProfileFragment;
+import com.lambton.moviebuddy.ui.ReviewFragment;
 
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -26,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     NavigationView navigationView;
     RecyclerView lst_menu_items;
     ImageView hamburger, setting;
-    TextView txt_title;
+    TextView txt_title,sub_title;
     List<DrawerModel> drawerModelList;
 
     String title[] = {"Home", "Profile", "Book Tickets", "Movie Reviews"};
@@ -42,7 +45,9 @@ public class MainActivity extends AppCompatActivity {
         hamburger = findViewById(R.id.hamburger);
         setting = findViewById(R.id.setting);
         txt_title = findViewById(R.id.txt_title);
+        sub_title = findViewById(R.id.sub_title);
         txt_title.setText("Movie Buff");
+        sub_title.setText("Find movie theatre nearby");
         lst_menu_items.setLayoutManager(new LinearLayoutManager(this,
                 LinearLayoutManager.VERTICAL, false));
         drawerModelList = new ArrayList<>();
@@ -86,9 +91,27 @@ public class MainActivity extends AppCompatActivity {
             case 0:
                 fragment = new MapsFragment();
                 txt_title.setText("Movie Buff");
+                sub_title.setVisibility(View.VISIBLE);
+                sub_title.setText("Find movie theatre nearby");
 
                 break;
             case 1:
+                fragment = new ProfileFragment();
+                sub_title.setVisibility(View.GONE);
+                txt_title.setText("Profile");
+
+                break;
+            case 2:
+                fragment = new BookTicketsFragment();
+                txt_title.setText("Book Tickets");
+                sub_title.setVisibility(View.GONE);
+
+
+                break;
+            case 3:
+                fragment = new ReviewFragment();
+                txt_title.setText("Review Movies");
+                sub_title.setVisibility(View.GONE);
 
 
                 break;

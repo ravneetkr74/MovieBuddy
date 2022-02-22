@@ -16,7 +16,7 @@
         
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:focusableInTouchMode="true"
             android:orientation="vertical">
 
@@ -65,25 +65,68 @@
                     android:id="@+id/radioButton1"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:text=" "
+                    android:text="Mission Imposible "
                     android:textSize="18sp"/>
 
                 <RadioButton
                     android:id="@+id/radioButton2"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:text=""
+                    android:text="Avengers"
                     android:textSize="18sp"/>
 
                 <RadioButton
                     android:id="@+id/radioButton3"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:text=""
+                    android:text="Antman"
+                    android:textSize="18sp"/>
+                <RadioButton
+                    android:id="@+id/radioButton4"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Mission Imposible "
+                    android:textSize="18sp"/>
+
+                <RadioButton
+                    android:id="@+id/radioButton5"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="The Meg"
+                    android:textSize="18sp"/>
+
+                <RadioButton
+                    android:id="@+id/radioButton6"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Iron Man"
+                    android:textSize="18sp"/>
+                <RadioButton
+                    android:id="@+id/radioButton7"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Deadpool"
+                    android:textSize="18sp"/>
+
+                <RadioButton
+                    android:id="@+id/radioButton8"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Doctor Strange"
                     android:textSize="18sp"/>
             </RadioGroup>
-
-
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/button_shape"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="30dp"
+                android:text="Book Tickets"
+                android:id="@+id/book"
+                android:textColor="@color/white"
+                android:textAllCaps="false"
+                 />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
