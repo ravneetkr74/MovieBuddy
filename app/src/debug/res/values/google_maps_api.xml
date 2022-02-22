@@ -1,0 +1,24 @@
+<resources>
+    <!--
+    TODO: Before you run your application, you need a Google Maps API key.
+
+    To get one, follow this link, follow the directions and press "Create" at the end:
+
+    https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend&keyType=CLIENT_SIDE_ANDROID&r=30:D7:A4:32:77:A9:03:39:D0:AC:E5:66:F0:96:F7:C3:0A:2B:10:C1%3Bcom.lambton.moviebuddy.ui
+
+    You can also add your credentials to an existing key, using these values:
+
+    Package name:
+    com.lambton.moviebuddy.ui
+
+    SHA-1 certificate fingerprint:
+    30:D7:A4:32:77:A9:03:39:D0:AC:E5:66:F0:96:F7:C3:0A:2B:10:C1
+
+    Alternatively, follow the directions here:
+    https://developers.google.com/maps/documentation/android/start#get-key
+
+    Once you have your key (it starts with "AIza"), replace the "google_maps_key"
+    string in this file.
+    -->
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyBexL6gYwuZJVeipt7dIdzajLL7RVQFsvc</string>
+</resources>
