@@ -124,6 +124,7 @@ public class MapsFragment extends Fragment {
                     Toast.makeText(getContext(),"Please Enable GPS And Internet !!!",Toast.LENGTH_LONG).show();
             }
         });
+
     }
 
     private class PlaceTask extends AsyncTask<String,Integer,String> {
