@@ -18,7 +18,7 @@ import java.io.File;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
-public class ProfileFragment extends ImagePickerFragment {
+public class ProfileFragment extends Fragment {
 CircleImageView profile_img;
 EditText first_name,last_name;
 Button save;
@@ -27,12 +27,12 @@ Button save;
         // Required empty public constructor
     }
 
-    @Override
-    public void selectedImage(String imagePath, String type, String thumbnailPath) {
-
-        Picasso.get().load(new File(imagePath)).into(profile_img);
-
-    }
+//    @Override
+//    public void selectedImage(String imagePath, String type, String thumbnailPath) {
+//
+//       // Picasso.get().load(new File(imagePath)).into(profile_img);
+//
+//    }
 
 
     @Override
@@ -49,12 +49,12 @@ Button save;
         profile_img=(CircleImageView)view.findViewById(R.id.profile_img);
         first_name=(EditText) view.findViewById(R.id.first_name);
         last_name=(EditText) view.findViewById(R.id.last_name);
-        profile_img.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                gallery(getActivity());
-            }
-        });
+//        profile_img.setOnClickListener(new View.OnClickListener() {
+//            @Override
+////            public void onClick(View view) {
+////                gallery(getActivity());
+////            }
+//        });
 
         return view;
     }
