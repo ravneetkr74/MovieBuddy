@@ -91,6 +91,9 @@ Boolean from=false;
                     User user = new User(first_name.getText().toString(), last_name.getText().toString(), ImageConverter.convertImage2ByteArray(image));
                     daoHelper.getUserInterface().insert(user);
                     from=true;
+                    MapsFragment mapsFragment=new MapsFragment();
+                    getFragmentManager().beginTransaction().replace(R.id.frame_container, mapsFragment).
+                            addToBackStack(mapsFragment.getClass().getName()).commit();
                 }
             }
         });

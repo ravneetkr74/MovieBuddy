@@ -34,7 +34,7 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
-public class BookTicketsFragment extends Fragment implements NumberPicker.OnValueChangeListener {
+public class BookTicketsFragment extends Fragment {
 
     EditText select_time;
     EditText quantity;
@@ -104,6 +104,9 @@ public class BookTicketsFragment extends Fragment implements NumberPicker.OnValu
             public void onClick(View view) {
                 Tickets tickets=new Tickets(name,time,quant,lat,lng);
                 daoHelper.getTicketInterface().insert(tickets);
+                MapsFragment mapsFragment=new MapsFragment();
+                getFragmentManager().beginTransaction().replace(R.id.frame_container, mapsFragment).
+                        addToBackStack(mapsFragment.getClass().getName()).commit();
             }
         });
 
@@ -117,14 +120,21 @@ public class BookTicketsFragment extends Fragment implements NumberPicker.OnValu
                 mainDialog.setView(dialogView);
 
                 final Button cancel = (Button) dialogView.findViewById(R.id.cancel);
-                final Button save = (Button) dialogView.findViewById(R.id.save);
+                final Button save = (Button) dialogView.findViewById(R.id.set);
                 final NumberPicker np = (NumberPicker) dialogView.findViewById(R.id.numberPicker1);
                 final AlertDialog alertDialog = mainDialog.create();
                 alertDialog.show();
                 np.setMaxValue(100);
                 np.setMinValue(1);
                 np.setWrapSelectorWheel(false);
-                np.setOnValueChangedListener((NumberPicker.OnValueChangeListener) getContext());
+                np.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+                    @Override
+                    public void onValueChange(NumberPicker numberPicker, int i, int i1) {
+                        Log.i("value is",""+i1);
+                        quant = i1;
+                    }
+                });
+
 
                 cancel.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -172,8 +182,5 @@ public class BookTicketsFragment extends Fragment implements NumberPicker.OnValu
         return view;
         }
 
-    @Override
-    public void onValueChange(NumberPicker numberPicker, int i, int i1) {
-        Log.i("value is",""+i1);
-    }
+
 }
