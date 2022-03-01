@@ -21,16 +21,18 @@
             android:orientation="vertical">
 
             <EditText
+                android:id="@+id/select_time"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:layout_marginRight="30dp"
                 android:layout_marginLeft="30dp"
-                android:background="@drawable/edittext_bg"
                 android:layout_marginTop="30dp"
-                android:id="@+id/select_time"
+                android:layout_marginRight="30dp"
+                android:focusable="false"
+                android:background="@drawable/edittext_bg"
                 android:hint="Select time"
-                android:textColorHint="@color/black"
-                android:paddingLeft="8dp"/>
+                android:paddingLeft="8dp"
+                android:textColorHint="@color/black" />
+
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
@@ -54,67 +56,11 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:text="MOVIES AVAILABLE FOR THE MENTIONED SHOWTIME"/>
-            <RadioGroup
-                android:layout_margin="30dp"
-                android:id="@+id/radioGroup"
-                android:layout_width="fill_parent"
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <RadioButton
-                    android:id="@+id/radioButton1"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Mission Imposible "
-                    android:textSize="18sp"/>
-
-                <RadioButton
-                    android:id="@+id/radioButton2"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Avengers"
-                    android:textSize="18sp"/>
-
-                <RadioButton
-                    android:id="@+id/radioButton3"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Antman"
-                    android:textSize="18sp"/>
-                <RadioButton
-                    android:id="@+id/radioButton4"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Mission Imposible "
-                    android:textSize="18sp"/>
-
-                <RadioButton
-                    android:id="@+id/radioButton5"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:text="The Meg"
-                    android:textSize="18sp"/>
-
-                <RadioButton
-                    android:id="@+id/radioButton6"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Iron Man"
-                    android:textSize="18sp"/>
-                <RadioButton
-                    android:id="@+id/radioButton7"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Deadpool"
-                    android:textSize="18sp"/>
-
-                <RadioButton
-                    android:id="@+id/radioButton8"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Doctor Strange"
-                    android:textSize="18sp"/>
-            </RadioGroup>
+                android:layout_marginTop="10dp"
+                android:id="@+id/recyclerview"/>
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
