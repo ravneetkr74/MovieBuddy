@@ -1,5 +1,6 @@
 package com.lambton.moviebuddy;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -9,8 +10,11 @@ import android.widget.TextView;
 import com.google.android.material.navigation.NavigationView;
 import com.lambton.moviebuddy.ui.Adapter.DrawerAdapter;
 import com.lambton.moviebuddy.ui.BookTicketsFragment;
+import com.lambton.moviebuddy.ui.DaoHelper;
 import com.lambton.moviebuddy.ui.MapsFragment;
 import com.lambton.moviebuddy.ui.Model.DrawerModel;
+import com.lambton.moviebuddy.ui.Model.ImageConverter;
+import com.lambton.moviebuddy.ui.Model.User;
 import com.lambton.moviebuddy.ui.ProfileFragment;
 import com.lambton.moviebuddy.ui.ReviewFragment;
 
@@ -24,15 +28,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class MainActivity extends AppCompatActivity {
     DrawerLayout drawer;
     NavigationView navigationView;
     RecyclerView lst_menu_items;
     ImageView hamburger, setting;
-    TextView txt_title,sub_title;
+    TextView txt_title,sub_title,name;
     List<DrawerModel> drawerModelList;
+    CircleImageView main_image;
+    DaoHelper daoHelper;
+    Bitmap image;
 
-    String title[] = {"Home", "Profile", "Payment"};
+    String title[] = {"Home", "Profile", "Payment","Movie Reviews"};
 
 
     @Override
@@ -46,11 +55,14 @@ public class MainActivity extends AppCompatActivity {
         setting = findViewById(R.id.setting);
         txt_title = findViewById(R.id.txt_title);
         sub_title = findViewById(R.id.sub_title);
+        name = findViewById(R.id.name);
+        main_image = findViewById(R.id.main_img);
         txt_title.setText("Movie Buff");
         sub_title.setText("Find movie theatre nearby");
         lst_menu_items.setLayoutManager(new LinearLayoutManager(this,
                 LinearLayoutManager.VERTICAL, false));
         drawerModelList = new ArrayList<>();
+        daoHelper = DaoHelper.getInstance(this);
         MapsFragment fragment = new MapsFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment).commit();
 
@@ -80,8 +92,11 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+        checkProfile();
 
     }
+
+
     private void selectItem(int position) {
 
         Fragment fragment = null;
@@ -147,5 +162,21 @@ public class MainActivity extends AppCompatActivity {
         return getSupportFragmentManager().findFragmentById(R.id.frame_container);
     }
 
+
+    private void checkProfile() {
+        List<User> users = daoHelper.getUserInterface().getAll();
+        if(users.size()!=0){
+            User user = users.get(0);
+            name.setText(user.getFirst_name());
+            byte[] data = user.getUser_image();
+            if (data != null) {
+                image = ImageConverter.convertByteArray2Bitmap(data);
+                main_image.setImageBitmap(image);
+
+            }
+        }
+
+
+    }
 
 }

@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -27,8 +29,11 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.lambton.moviebuddy.MainActivity;
 import com.lambton.moviebuddy.R;
+import com.lambton.moviebuddy.ui.Model.ImageConverter;
 import com.lambton.moviebuddy.ui.Model.JsonParser;
+import com.lambton.moviebuddy.ui.Model.User;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -42,6 +47,8 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class MapsFragment extends Fragment {
 
     FusedLocationProviderClient client;
@@ -49,6 +56,11 @@ public class MapsFragment extends Fragment {
     SupportMapFragment smf;
     GoogleMap mymap;
     Button locate_me;
+    TextView name;
+    MainActivity mainActivity;
+    CircleImageView main_img;
+    DaoHelper daoHelper;
+    Bitmap image;
     private OnMapReadyCallback callback = new OnMapReadyCallback() {
 
 
@@ -66,6 +78,11 @@ public class MapsFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_maps, container, false);
         locate_me=(Button)view.findViewById(R.id.locate_me);
+        mainActivity=(MainActivity)getActivity();
+        main_img = mainActivity.findViewById(R.id.main_img);
+        name = mainActivity.findViewById(R.id.name);
+        daoHelper = DaoHelper.getInstance(getContext());
+
         client = LocationServices.getFusedLocationProviderClient(requireActivity());
         if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             getCurrentLocation();
@@ -86,6 +103,8 @@ public class MapsFragment extends Fragment {
                 new PlaceTask().execute(url);
             }
         });
+
+        checkProfile();
         return view;
     }
 
@@ -202,5 +221,21 @@ public class MapsFragment extends Fragment {
 
             }
         }
+    }
+
+    private void checkProfile() {
+        List<User> users = daoHelper.getUserInterface().getAll();
+        if(users.size()!=0){
+            User user = users.get(0);
+            name.setText(user.getFirst_name());
+            byte[] data = user.getUser_image();
+            if (data != null) {
+                image = ImageConverter.convertByteArray2Bitmap(data);
+                main_img.setImageBitmap(image);
+
+            }
+        }
+
+
     }
 }

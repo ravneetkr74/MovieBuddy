@@ -15,7 +15,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.lambton.moviebuddy.MainActivity;
 import com.lambton.moviebuddy.R;
 import com.lambton.moviebuddy.ui.Model.ImageConverter;
 import com.lambton.moviebuddy.ui.Model.Tickets;
@@ -32,7 +35,7 @@ import static android.app.Activity.RESULT_OK;
 
 
 public class ProfileFragment extends Fragment {
-CircleImageView profile_img;
+CircleImageView profile_img,main_img;
 EditText first_name,last_name;
 private static final int CAMERA_REQUEST = 102;
 private static final int GALLERY_REQUEST = 101;
@@ -41,6 +44,8 @@ Button save;
 Bitmap image;
 DaoHelper daoHelper;
 Boolean from=false;
+TextView name;
+MainActivity mainActivity;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -64,6 +69,10 @@ Boolean from=false;
         first_name=(EditText) view.findViewById(R.id.first_name);
         last_name=(EditText) view.findViewById(R.id.last_name);
         save=(Button) view.findViewById(R.id.save);
+        mainActivity=(MainActivity)getActivity();
+        main_img = mainActivity.findViewById(R.id.main_img);
+        name = mainActivity.findViewById(R.id.name);
+
         daoHelper = DaoHelper.getInstance(getContext());
         profile_img.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,10 +99,13 @@ Boolean from=false;
                     User user = new User(first_name.getText().toString(), last_name.getText().toString(), ImageConverter.convertImage2ByteArray(image));
                     daoHelper.getUserInterface().insert(user);
                     from=true;
-                    MapsFragment mapsFragment=new MapsFragment();
-                    getFragmentManager().beginTransaction().replace(R.id.frame_container, mapsFragment).
-                            addToBackStack(mapsFragment.getClass().getName()).commit();
+
                 }
+                Toast.makeText(getContext(),"Profile Updated Successfully",Toast.LENGTH_SHORT).show();
+                MapsFragment mapsFragment=new MapsFragment();
+                getFragmentManager().beginTransaction().replace(R.id.frame_container, mapsFragment).
+                        addToBackStack(mapsFragment.getClass().getName()).commit();
+
             }
         });
 
@@ -101,16 +113,19 @@ Boolean from=false;
     }
 
     private void checkProfile() {
-        List<User> notes = daoHelper.getUserInterface().getAll();
-        if(notes.size()!=0){
+        List<User> users = daoHelper.getUserInterface().getAll();
+        if(users.size()!=0){
             from = true;
-            User user = notes.get(0);
+            User user = users.get(0);
             first_name.setText(user.getFirst_name());
             last_name.setText(user.getLast_name());
+            name.setText(user.getFirst_name());
             byte[] data = user.getUser_image();
             if (data != null) {
                 image = ImageConverter.convertByteArray2Bitmap(data);
                 profile_img.setImageBitmap(image);
+                main_img.setImageBitmap(image);
+
             }
         }
 
