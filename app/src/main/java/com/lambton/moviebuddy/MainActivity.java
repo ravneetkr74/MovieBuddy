@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     TextView txt_title,sub_title;
     List<DrawerModel> drawerModelList;
 
-    String title[] = {"Home", "Profile", "Book Tickets", "Movie Reviews"};
+    String title[] = {"Home", "Profile", "Payment"};
 
 
     @Override

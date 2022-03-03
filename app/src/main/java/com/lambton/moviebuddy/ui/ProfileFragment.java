@@ -71,6 +71,7 @@ Boolean from=false;
                   openAttachments();
             }
         });
+        checkProfile();
         if(from){
             getUpdatedUser();
         }
@@ -100,6 +101,24 @@ Boolean from=false;
 
         return view;
     }
+
+    private void checkProfile() {
+        List<User> notes = daoHelper.getUserInterface().getAll();
+        if(notes.size()!=0){
+            from = true;
+            User user = notes.get(0);
+            first_name.setText(user.getFirst_name());
+            last_name.setText(user.getLast_name());
+            byte[] data = user.getUser_image();
+            if (data != null) {
+                image = ImageConverter.convertByteArray2Bitmap(data);
+                profile_img.setImageBitmap(image);
+            }
+        }
+
+
+    }
+
     @Override
     public void onActivityResult(int reqCode, int resultCode, Intent data) {
         super.onActivityResult(reqCode, resultCode, data);
