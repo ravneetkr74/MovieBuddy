@@ -72,9 +72,7 @@ Boolean from=false;
             }
         });
         checkProfile();
-        if(from){
-            getUpdatedUser();
-        }
+
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -145,19 +143,7 @@ Boolean from=false;
         }
     }
 
-    private void getUpdatedUser() {
-        List<User> notes = daoHelper.getUserInterface().getAll();
-            User user = notes.get(0);
-            first_name.setText(user.getFirst_name());
-           last_name.setText(user.getLast_name());
-            byte[] data = user.getUser_image();
-            if (data != null) {
-                image = ImageConverter.convertByteArray2Bitmap(data);
-                profile_img.setImageBitmap(image);
-            }
 
-
-    }
     public void openAttachments() {
 
         final CharSequence[] items = { "Camera", "Gallery","Cancel" };
