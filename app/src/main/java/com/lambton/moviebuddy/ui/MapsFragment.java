@@ -93,10 +93,10 @@ public class MapsFragment extends Fragment {
         locate_me.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String url="https://maps.googleapis.com/maps/api/place/nearbysearch/json" +
-                        "?location="+userlocation.getLatitude()+userlocation.getLongitude()+
+                String url="https://maps.googleapis.com/maps/api/place/nearbysearch/json?" +
+                        "location="+userlocation.getLatitude()+","+userlocation.getLongitude()+
                         "&radius=5000" +
-                        "&type=movie_theater" +
+                        "&type=movie_theater" +  //with hospital it's working
                         "&sensor=true" +
                         "&key="+getResources().getString(R.string.google_maps_key);
 
