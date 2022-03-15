@@ -95,8 +95,8 @@ public class MapsFragment extends Fragment {
             public void onClick(View view) {
                 String url="https://maps.googleapis.com/maps/api/place/nearbysearch/json?" +
                         "location="+userlocation.getLatitude()+","+userlocation.getLongitude()+
-                        "&radius=5000" +
-                        "&type=movie_theater" +  //with hospital it's working
+                        "&radius=10000" +
+                        "&keyword=movie+theater" +  //with hospital it's working
                         "&sensor=true" +
                         "&key="+getResources().getString(R.string.google_maps_key);
 
