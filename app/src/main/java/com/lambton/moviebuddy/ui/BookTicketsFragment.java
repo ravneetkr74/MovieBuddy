@@ -25,7 +25,10 @@ import android.widget.Toast;
 import com.lambton.moviebuddy.R;
 import com.lambton.moviebuddy.ui.Adapter.MoviesAdapter;
 import com.lambton.moviebuddy.ui.Adapter.ReviewAdapter;
+import com.lambton.moviebuddy.ui.Interface.ApiClient;
+import com.lambton.moviebuddy.ui.Interface.ApiInterface;
 import com.lambton.moviebuddy.ui.Model.DrawerModel;
+import com.lambton.moviebuddy.ui.Model.MoviePojo;
 import com.lambton.moviebuddy.ui.Model.Tickets;
 
 import java.util.ArrayList;
@@ -40,17 +43,19 @@ public class BookTicketsFragment extends Fragment {
     EditText quantity;
     RecyclerView movies;
     MoviesAdapter moviesAdapter;
-    List<DrawerModel> drawerModelList;
+    List<MoviePojo> drawerModelList;
     DaoHelper daoHelper;
     Button book;
     double lat=30.22;
     double lng=30.22;
     String name,time;
     int quant;
+    ApiInterface api;
 
-    String title[] = {"Mission Imposible", "Avengers", "Antman", "Mission Imposible","The Meg","Iron Man","Deadpool","Doctor Strange"};
 
 
+    String title[] = {"The Adam Project", "Blacklight", "The Batman", "Gold","Hotel Transylvania: Transformania","Desperate Riders","Pursuit","Uncharted","The Godfather"};
+    Integer titleId[]={696806,823625,414906,760926,585083,928999,871799,335787,238};
 
 
 
@@ -75,7 +80,7 @@ public class BookTicketsFragment extends Fragment {
         quantity=(EditText) view.findViewById(R.id.quantity);
         movies=(RecyclerView)view.findViewById(R.id.recyclerview);
         book=(Button) view.findViewById(R.id.book);
-
+        api= ApiClient.apiInteface();
         daoHelper = DaoHelper.getInstance(getContext());
         select_time.setInputType(InputType.TYPE_NULL);
         select_time.setOnClickListener(new View.OnClickListener() {
@@ -161,8 +166,9 @@ public class BookTicketsFragment extends Fragment {
 
         for (int i = 0; i < title.length; i++) {
 
-            DrawerModel mObj = new DrawerModel();
+            MoviePojo mObj = new MoviePojo();
             mObj.setName(title[i]);
+            mObj.setId(titleId[i]);
             if(i==0){
                 mObj.setSelected(false);
             }

@@ -25,7 +25,9 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -67,6 +69,7 @@ public class MapsFragment extends Fragment {
         @Override
         public void onMapReady(GoogleMap googleMap) {
             mymap=googleMap;
+
 
         }
     };
@@ -132,7 +135,8 @@ public class MapsFragment extends Fragment {
                     userlocation=location;
 
                     LatLng sydney = new LatLng(location.getLatitude(), location.getLongitude());
-                    mymap.addMarker(new MarkerOptions().position(sydney).title("Here I am"));
+
+                    mymap.addMarker(new MarkerOptions().position(sydney).title("Here I am").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
                     mymap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
                     mymap.animateCamera(CameraUpdateFactory.newLatLngZoom(sydney,15.5f),4000,null);
 
@@ -218,6 +222,18 @@ public class MapsFragment extends Fragment {
                 markerOptions.position(latLng);
                 markerOptions.title(name);
                 mymap.addMarker(markerOptions);
+                mymap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+                mymap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,15.5f),4000,null);
+
+                mymap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                    @Override
+                    public boolean onMarkerClick(@NonNull Marker marker) {
+                        BookTicketsFragment bookTicketsFragment=new BookTicketsFragment();
+                        getFragmentManager().beginTransaction().replace(R.id.frame_container, bookTicketsFragment).
+                                addToBackStack(bookTicketsFragment.getClass().getName()).commit();
+                        return true;
+                    }
+                });
 
             }
         }

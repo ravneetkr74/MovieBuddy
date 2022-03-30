@@ -14,14 +14,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.lambton.moviebuddy.R;
 import com.lambton.moviebuddy.ui.Model.DrawerModel;
+import com.lambton.moviebuddy.ui.Model.MoviePojo;
 
 import java.util.List;
 
 public abstract class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder> {
     Context mContext;
-    List<DrawerModel> mList;
+    List<MoviePojo> mList;
 
-    public MoviesAdapter(Context mContext, List<DrawerModel> mList) {
+    public MoviesAdapter(Context mContext, List<MoviePojo> mList) {
         this.mContext = mContext;
         this.mList = mList;
     }
@@ -35,7 +36,7 @@ public abstract class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.V
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        DrawerModel mObj = mList.get(position);
+        MoviePojo mObj = mList.get(position);
         holder.txtTitle.setText(mObj.getName());
 
 

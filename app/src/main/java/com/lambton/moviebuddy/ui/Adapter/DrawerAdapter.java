@@ -1,5 +1,6 @@
 package com.lambton.moviebuddy.ui.Adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,7 +34,7 @@ public abstract class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.V
     }
 
     @Override
-    public void onBindViewHolder(@NonNull DrawerAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull DrawerAdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         DrawerModel mObj = mList.get(position);
         holder.txtTitle.setText(mObj.getName());
 
