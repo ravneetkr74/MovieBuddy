@@ -49,7 +49,7 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class MapsFragment extends Fragment {
+public class MapsFragment extends Fragment implements OnMapReadyCallback {
 
     FusedLocationProviderClient client;
     Location userlocation;
@@ -61,15 +61,6 @@ public class MapsFragment extends Fragment {
     CircleImageView main_img;
     DaoHelper daoHelper;
     Bitmap image;
-    private OnMapReadyCallback callback = new OnMapReadyCallback() {
-
-
-        @Override
-        public void onMapReady(GoogleMap googleMap) {
-            mymap=googleMap;
-
-        }
-    };
 
     @Nullable
     @Override
@@ -84,24 +75,21 @@ public class MapsFragment extends Fragment {
         daoHelper = DaoHelper.getInstance(getContext());
 
         client = LocationServices.getFusedLocationProviderClient(requireActivity());
-        if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            getCurrentLocation();
-        } else {
-            ActivityCompat.requestPermissions(requireActivity(), new String[]{(Manifest.permission.ACCESS_FINE_LOCATION)},
-                    101);
-        }
+
         locate_me.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String url="https://maps.googleapis.com/maps/api/place/nearbysearch/json?" +
-                        "location="+userlocation.getLatitude()+","+userlocation.getLongitude()+
+                if(userlocation != null){
+                String url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?" +
+                        "location=" + userlocation.getLatitude() + "," + userlocation.getLongitude() +
                         "&radius=10000" +
                         "&keyword=movie+theater" +  //with hospital it's working
                         "&sensor=true" +
-                        "&key="+getResources().getString(R.string.google_maps_key);
+                        "&key=" + getResources().getString(R.string.google_maps_key);
 
                 new PlaceTask().execute(url);
             }
+        }
         });
 
         checkProfile();
@@ -113,11 +101,18 @@ public class MapsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
        smf = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         if (smf != null) {
-            smf.getMapAsync(callback);
-
+            smf.getMapAsync(this);
         }
 
 
+    }
+    private  void setupGetLocation(){
+        if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            getCurrentLocation();
+        } else {
+            ActivityCompat.requestPermissions(requireActivity(), new String[]{(Manifest.permission.ACCESS_FINE_LOCATION)},
+                    101);
+        }
     }
 
     @SuppressLint("MissingPermission")
@@ -127,23 +122,29 @@ public class MapsFragment extends Fragment {
         task.addOnSuccessListener(new OnSuccessListener<Location>() {
             @Override
             public void onSuccess(Location location) {
+                if(userlocation != null){
+                }
                 if(location!=null)
                 {
                     userlocation=location;
-
                     LatLng sydney = new LatLng(location.getLatitude(), location.getLongitude());
                     mymap.addMarker(new MarkerOptions().position(sydney).title("Here I am"));
                     mymap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
                     mymap.animateCamera(CameraUpdateFactory.newLatLngZoom(sydney,15.5f),4000,null);
 
                     Toast.makeText(getContext(),"Location Found !!!",Toast.LENGTH_LONG).show();
-
                 }
                 else
                     Toast.makeText(getContext(),"Please Enable GPS And Internet !!!",Toast.LENGTH_LONG).show();
             }
         });
 
+    }
+
+    @Override
+    public void onMapReady(@NonNull GoogleMap googleMap) {
+        mymap = googleMap;
+        setupGetLocation();
     }
 
     private class PlaceTask extends AsyncTask<String,Integer,String> {
@@ -218,8 +219,8 @@ public class MapsFragment extends Fragment {
                 markerOptions.position(latLng);
                 markerOptions.title(name);
                 mymap.addMarker(markerOptions);
-
             }
+            mymap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(userlocation.getLatitude(),userlocation.getLongitude()),10.5f),4000,null);
         }
     }
 
