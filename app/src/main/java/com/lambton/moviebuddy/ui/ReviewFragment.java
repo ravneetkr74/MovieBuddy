@@ -14,6 +14,7 @@ import com.lambton.moviebuddy.R;
 import com.lambton.moviebuddy.ui.Adapter.DrawerAdapter;
 import com.lambton.moviebuddy.ui.Adapter.ReviewAdapter;
 import com.lambton.moviebuddy.ui.Model.DrawerModel;
+import com.lambton.moviebuddy.ui.Model.MoviePojo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,9 +24,10 @@ public class ReviewFragment extends Fragment {
 
     RecyclerView recyclerView;
     ReviewAdapter reviewAdapter;
-    List<DrawerModel> drawerModelList;
+    List<MoviePojo> drawerModelList;
 
-    String title[] = {"Mission Imposible", "Avengers", "Antman", "Mission Imposible","The Meg","Iron Man","Deadpool","Doctor Strange"};
+    String title[] = {"The Adam Project", "Blacklight", "The Batman", "Gold","Hotel Transylvania: Transformania","Desperate Riders","Pursuit","Uncharted","The Godfather"};
+    Integer titleId[]={696806,823625,414906,760926,585083,928999,871799,335787,238};
 
 
     public ReviewFragment() {
@@ -49,8 +51,9 @@ public class ReviewFragment extends Fragment {
 
         for (int i = 0; i < title.length; i++) {
 
-            DrawerModel mObj = new DrawerModel();
+            MoviePojo mObj = new MoviePojo();
             mObj.setName(title[i]);
+            mObj.setId(titleId[i]);
             drawerModelList.add(mObj);
         }
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),
@@ -58,6 +61,13 @@ public class ReviewFragment extends Fragment {
        reviewAdapter = new ReviewAdapter(getContext(), drawerModelList) {
             @Override
             protected void onClickView(int pos) {
+
+                MovieReviews mapsFragment=new MovieReviews();
+                Bundle bundle = new Bundle();
+                bundle.putInt("id", drawerModelList.get(pos).getId());
+                mapsFragment.setArguments(bundle);
+                getFragmentManager().beginTransaction().replace(R.id.frame_container, mapsFragment).
+                        addToBackStack(mapsFragment.getClass().getName()).commit();
 
             }
         };

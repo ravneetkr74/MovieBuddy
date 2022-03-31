@@ -25,7 +25,9 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -219,9 +221,21 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                 markerOptions.position(latLng);
                 markerOptions.title(name);
                 mymap.addMarker(markerOptions);
+                mymap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+                mymap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,15.5f),4000,null);
+
+                mymap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                    @Override
+                    public boolean onMarkerClick(@NonNull Marker marker) {
+                        BookTicketsFragment bookTicketsFragment=new BookTicketsFragment();
+                        getFragmentManager().beginTransaction().replace(R.id.frame_container, bookTicketsFragment).
+                                addToBackStack(bookTicketsFragment.getClass().getName()).commit();
+                        return true;
+                    }
+                });
+
             }
-            mymap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(userlocation.getLatitude(),userlocation.getLongitude()),10.5f),4000,null);
-        }
+            }
     }
 
     private void checkProfile() {

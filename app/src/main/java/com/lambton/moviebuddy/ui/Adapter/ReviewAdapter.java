@@ -1,5 +1,6 @@
 package com.lambton.moviebuddy.ui.Adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,14 +13,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.lambton.moviebuddy.R;
 import com.lambton.moviebuddy.ui.Model.DrawerModel;
+import com.lambton.moviebuddy.ui.Model.MoviePojo;
 
 import java.util.List;
 
 public abstract class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder> {
     Context mContext;
-    List<DrawerModel> mList;
+    List<MoviePojo> mList;
 
-    public ReviewAdapter(Context mContext, List<DrawerModel> mList) {
+    public ReviewAdapter(Context mContext, List<MoviePojo> mList) {
         this.mContext = mContext;
         this.mList = mList;
     }
@@ -33,7 +35,7 @@ public abstract class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.V
 
     @Override
     public void onBindViewHolder(@NonNull ReviewAdapter.ViewHolder holder, int position) {
-        DrawerModel mObj = mList.get(position);
+        MoviePojo mObj = mList.get(position);
         holder.txtTitle.setText(mObj.getName());
 
 
