@@ -100,7 +100,6 @@ public class MovieReviews extends Fragment {
                                     if(object.get("rating")!=null) {
                                         rating = object.getString("rating");
                                     }
-
                                     String avatar_path = "";
 
                                     if (object.get("avatar_path") == null) {
@@ -119,39 +118,27 @@ public class MovieReviews extends Fragment {
                                     if (jsonObject1.get("content") != null) {
                                         content = jsonObject1.getString("content");
                                     }
-
                                     items.setAvatar_path(avatar_path);
                                     items.setRating(rating);
                                     items.setUsername(username);
                                     items.setContent(content);
-
-
-
                                     itemList.add(items);
                                 }
-
                                 movieReviewAdapter = new MovieReviewAdapter(getContext(), itemList);
                                 recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                                 recyclerView.setAdapter(movieReviewAdapter);
-
                             }
 
                     } catch (JSONException | IOException e) {
                         e.printStackTrace();
 
-
                     }
                 } else {
 
-
-
                 }
             }
-
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-
             }
         });
     }

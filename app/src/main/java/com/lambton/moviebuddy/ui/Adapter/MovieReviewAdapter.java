@@ -1,6 +1,7 @@
 package com.lambton.moviebuddy.ui.Adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.lambton.moviebuddy.R;
 import com.lambton.moviebuddy.ui.Model.ImageConverter;
 import com.lambton.moviebuddy.ui.Model.ReviewItem;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -38,7 +40,14 @@ public class MovieReviewAdapter extends RecyclerView.Adapter<MovieReviewAdapter.
         holder.author_name.setText(reviewItems.get(position).getUsername());
         holder.rating.setText(""+reviewItems.get(position).getRating());
         holder.review.setText(reviewItems.get(position).getContent());
-       // holder.img.setImageBitmap(ImageConverter.convertByteArray2Bitmap(reviewItems.get(position).getAvatar_path()));
+        StringBuilder urlString = new StringBuilder(reviewItems.get(position).getAvatar_path());
+        urlString.deleteCharAt(0);
+        Log.w("IMAGES",reviewItems.get(position).getAvatar_path());
+        Picasso.get()
+                .load(urlString.toString())
+                .resize(50, 50)
+                .centerCrop()
+                .into(holder.img);
 
     }
 
@@ -59,5 +68,13 @@ public class MovieReviewAdapter extends RecyclerView.Adapter<MovieReviewAdapter.
 
 
         }
+    }
+    public  boolean contains(StringBuilder sb, String findString){
+
+        /*
+         * if the substring is found, position of the match is
+         * returned which is >=0, if not -1 is returned
+         */
+        return sb.indexOf(findString) > -1;
     }
 }
