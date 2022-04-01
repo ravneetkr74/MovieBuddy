@@ -47,6 +47,7 @@ public class MovieReviewAdapter extends RecyclerView.Adapter<MovieReviewAdapter.
                 .load(urlString.toString())
                 .resize(50, 50)
                 .centerCrop()
+                .placeholder(R.drawable.placeholder)
                 .into(holder.img);
 
     }

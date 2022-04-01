@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,6 +47,7 @@ DaoHelper daoHelper;
 Boolean from=false;
 TextView name;
 MainActivity mainActivity;
+    ImageView hamburger;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -69,10 +71,12 @@ MainActivity mainActivity;
         first_name=(EditText) view.findViewById(R.id.first_name);
         last_name=(EditText) view.findViewById(R.id.last_name);
         save=(Button) view.findViewById(R.id.save);
+        hamburger=(ImageView) view.findViewById(R.id.hamburger);
+
         mainActivity=(MainActivity)getActivity();
         main_img = mainActivity.findViewById(R.id.main_img);
         name = mainActivity.findViewById(R.id.name);
-
+        hamburger.setImageDrawable(getResources().getDrawable(R.drawable.ic_baseline_dehaze_24));
         daoHelper = DaoHelper.getInstance(getContext());
         profile_img.setOnClickListener(new View.OnClickListener() {
             @Override

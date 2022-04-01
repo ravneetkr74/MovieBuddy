@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -63,6 +64,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
     CircleImageView main_img;
     DaoHelper daoHelper;
     Bitmap image;
+    ImageView hamburger;
 
     @Nullable
     @Override
@@ -71,10 +73,13 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_maps, container, false);
         locate_me=(Button)view.findViewById(R.id.locate_me);
+        hamburger=(ImageView) view.findViewById(R.id.hamburger);
+
         mainActivity=(MainActivity)getActivity();
         main_img = mainActivity.findViewById(R.id.main_img);
         name = mainActivity.findViewById(R.id.name);
         daoHelper = DaoHelper.getInstance(getContext());
+        hamburger.setImageDrawable(getResources().getDrawable(R.drawable.ic_baseline_dehaze_24));
 
         client = LocationServices.getFusedLocationProviderClient(requireActivity());
 

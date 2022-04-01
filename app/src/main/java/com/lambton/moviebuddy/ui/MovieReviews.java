@@ -12,6 +12,7 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.lambton.moviebuddy.R;
@@ -40,6 +41,8 @@ public class MovieReviews extends Fragment {
     List<ReviewItem> itemList;
     ApiInterface api;
     int id=0;
+    ImageView hamburger;
+
 
     public MovieReviews() {
         // Required empty public constructor
@@ -61,6 +64,17 @@ public class MovieReviews extends Fragment {
         recyclerView=(RecyclerView)view.findViewById(R.id.recyclerview);
         api= ApiClient.apiInteface();
         id = getArguments().getInt("id");
+        hamburger=(ImageView) view.findViewById(R.id.hamburger);
+        hamburger.setImageDrawable(getResources().getDrawable(R.drawable.ic_baseline_arrow_back_24));
+        hamburger.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ReviewFragment reviewFragment=new ReviewFragment();
+                getFragmentManager().beginTransaction().replace(R.id.frame_container, reviewFragment).
+                        addToBackStack(reviewFragment.getClass().getName()).commit();
+            }
+        });
+
         getReviews();
         return view;
     }

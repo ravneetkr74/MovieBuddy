@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.lambton.moviebuddy.R;
 import com.lambton.moviebuddy.ui.Adapter.DrawerAdapter;
@@ -25,6 +26,7 @@ public class ReviewFragment extends Fragment {
     RecyclerView recyclerView;
     ReviewAdapter reviewAdapter;
     List<MoviePojo> drawerModelList;
+    ImageView hamburger;
 
     String title[] = {"The Adam Project", "Blacklight", "The Batman", "Gold","Hotel Transylvania: Transformania","Desperate Riders","Pursuit","Uncharted","The Godfather"};
     Integer titleId[]={696806,823625,414906,760926,585083,928999,871799,335787,238};
@@ -47,6 +49,9 @@ public class ReviewFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_review, container, false);
         recyclerView=(RecyclerView)view.findViewById(R.id.recyclerview);
+        hamburger=(ImageView) view.findViewById(R.id.hamburger);
+        hamburger.setImageDrawable(getResources().getDrawable(R.drawable.ic_baseline_dehaze_24));
+
         drawerModelList = new ArrayList<>();
 
         for (int i = 0; i < title.length; i++) {

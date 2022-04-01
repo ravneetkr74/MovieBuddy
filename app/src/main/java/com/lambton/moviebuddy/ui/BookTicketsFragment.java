@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -51,6 +52,7 @@ public class BookTicketsFragment extends Fragment {
     String name,time;
     int quant;
     ApiInterface api;
+    ImageView hamburger;
 
 
 
@@ -80,6 +82,10 @@ public class BookTicketsFragment extends Fragment {
         quantity=(EditText) view.findViewById(R.id.quantity);
         movies=(RecyclerView)view.findViewById(R.id.recyclerview);
         book=(Button) view.findViewById(R.id.book);
+        hamburger=(ImageView) view.findViewById(R.id.hamburger);
+
+        hamburger.setImageDrawable(getResources().getDrawable(R.drawable.ic_baseline_dehaze_24));
+
         api= ApiClient.apiInteface();
         daoHelper = DaoHelper.getInstance(getContext());
         select_time.setInputType(InputType.TYPE_NULL);
