@@ -68,7 +68,7 @@ public class MovieReviews extends Fragment {
 
     public void getReviews() {
 
-        api.getReviews(id,"category_list").enqueue(new Callback<ResponseBody>() {
+        api.getReviews(id,getResources().getString(R.string.ApiKey)).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
@@ -86,24 +86,26 @@ public class MovieReviews extends Fragment {
                     try {
                         JSONObject jsonObject = new JSONObject(response.body().string());
 
-                            int arrayLength = jsonObject.getJSONArray("result").length();
+                            int arrayLength = jsonObject.getJSONArray("results").length();
                             if (arrayLength == 0) {
                                 Toast.makeText(getContext(),"Oops There is no item!",Toast.LENGTH_SHORT).show();
                             } else {
                                 itemList = new ArrayList<>();
                                 for (int i = 0; i < arrayLength; i++) {
 
-                                    JSONObject object =jsonObject.getJSONArray("result").getJSONObject(i).getJSONObject("author_details");
+                                    JSONObject object =jsonObject.getJSONArray("results").getJSONObject(i).getJSONObject("author_details");
                                     ReviewItem items = new ReviewItem();
 
-                                    Integer rating=0;
-                                    if(object.get("rating") != null) {
-                                        rating = object.getInt("rating");
+                                    Double rating=0.0;
+                                    if(object.get("rating")!=null) {
+                                        rating = object.getDouble("rating");
                                     }
 
                                     String avatar_path = "";
 
-                                    if (object.get("avatar_path") != null) {
+                                    if (object.get("avatar_path") == null) {
+
+                                    }else {
                                         avatar_path = object.getString("avatar_path");
                                     }
                                     String username = "";
@@ -111,7 +113,7 @@ public class MovieReviews extends Fragment {
                                     if (object.get("username") != null) {
                                         username = object.getString("username");
                                     }
-                                    JSONObject jsonObject1 =jsonObject.getJSONArray("result").getJSONObject(i);
+                                    JSONObject jsonObject1 =jsonObject.getJSONArray("results").getJSONObject(i);
                                     String content = "";
 
                                     if (jsonObject1.get("content") != null) {
