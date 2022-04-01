@@ -96,9 +96,9 @@ public class MovieReviews extends Fragment {
                                     JSONObject object =jsonObject.getJSONArray("results").getJSONObject(i).getJSONObject("author_details");
                                     ReviewItem items = new ReviewItem();
 
-                                    Double rating=0.0;
+                                    String rating="";
                                     if(object.get("rating")!=null) {
-                                        rating = object.getDouble("rating");
+                                        rating = object.getString("rating");
                                     }
 
                                     String avatar_path = "";

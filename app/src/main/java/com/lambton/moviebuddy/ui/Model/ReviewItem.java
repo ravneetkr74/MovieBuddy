@@ -12,7 +12,7 @@ public class ReviewItem {
     private String avatar_path;
     @SerializedName("rating")
     @Expose
-    private Double rating;
+    private String rating;
     @SerializedName("content")
     @Expose
     private String content;
@@ -33,11 +33,11 @@ public class ReviewItem {
         this.avatar_path = avatar_path;
     }
 
-    public Double getRating() {
+    public String getRating() {
         return rating;
     }
 
-    public void setRating(Double rating) {
+    public void setRating(String rating) {
         this.rating = rating;
     }
 
