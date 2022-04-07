@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.PopupMenu;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,6 +24,7 @@ import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.lambton.moviebuddy.MainActivity;
 import com.lambton.moviebuddy.R;
 import com.lambton.moviebuddy.ui.Adapter.MoviesAdapter;
 import com.lambton.moviebuddy.ui.Adapter.ReviewAdapter;
@@ -49,10 +51,13 @@ public class BookTicketsFragment extends Fragment {
     Button book;
     double lat=30.22;
     double lng=30.22;
-    String name,time;
-    int quant;
+    String name="",time="";
+    int quant=0;
     ApiInterface api;
     ImageView hamburger;
+    MainActivity mainActivity;
+    DrawerLayout drawer;
+    TextView txt_title,sub_title;
 
 
 
@@ -78,13 +83,28 @@ public class BookTicketsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view=inflater.inflate(R.layout.fragment_book_tickets, container, false);
+        mainActivity=(MainActivity)getActivity();
+
         select_time=(EditText) view.findViewById(R.id.select_time);
         quantity=(EditText) view.findViewById(R.id.quantity);
         movies=(RecyclerView)view.findViewById(R.id.recyclerview);
         book=(Button) view.findViewById(R.id.book);
-        hamburger=(ImageView) view.findViewById(R.id.hamburger);
+        hamburger=mainActivity.findViewById(R.id.hamburger);
+        drawer = mainActivity.findViewById(R.id.drawer_layout);
+        txt_title = mainActivity.findViewById(R.id.txt_title);
+        sub_title = mainActivity.findViewById(R.id.sub_title);
+        sub_title.setVisibility(View.GONE);
+        txt_title.setText("Book Tickets");
+
 
         hamburger.setImageDrawable(getResources().getDrawable(R.drawable.ic_baseline_dehaze_24));
+        hamburger.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                drawer.openDrawer(Gravity.LEFT);
+
+            }
+        });
 
         api= ApiClient.apiInteface();
         daoHelper = DaoHelper.getInstance(getContext());
@@ -113,11 +133,21 @@ public class BookTicketsFragment extends Fragment {
         book.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Tickets tickets=new Tickets(name,time,quant,lat,lng);
-                daoHelper.getTicketInterface().insert(tickets);
-                MapsFragment mapsFragment=new MapsFragment();
-                getFragmentManager().beginTransaction().replace(R.id.frame_container, mapsFragment).
-                        addToBackStack(mapsFragment.getClass().getName()).commit();
+                if (name.equals("")) {
+                    Toast.makeText(getContext(), "Please select any movie", Toast.LENGTH_SHORT).show();
+                } else if (time.equals("")) {
+                    Toast.makeText(getContext(), "Please select time", Toast.LENGTH_SHORT).show();
+
+                } else if (quant == 0) {
+                    Toast.makeText(getContext(), "Please select quantity", Toast.LENGTH_SHORT).show();
+
+                } else {
+                    Tickets tickets = new Tickets(name, time, quant, lat, lng);
+                    daoHelper.getTicketInterface().insert(tickets);
+                    ShowAllTickets mapsFragment = new ShowAllTickets();
+                    getFragmentManager().beginTransaction().replace(R.id.frame_container, mapsFragment).
+                            addToBackStack(mapsFragment.getClass().getName()).commit();
+                }
             }
         });
 

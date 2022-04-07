@@ -60,6 +60,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
     GoogleMap mymap;
     Button locate_me;
     TextView name;
+    TextView txt_title,sub_title;
     MainActivity mainActivity;
     CircleImageView main_img;
     DaoHelper daoHelper;
@@ -78,6 +79,12 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         mainActivity=(MainActivity)getActivity();
         main_img = mainActivity.findViewById(R.id.main_img);
         name = mainActivity.findViewById(R.id.name);
+        txt_title = mainActivity.findViewById(R.id.txt_title);
+        sub_title = mainActivity.findViewById(R.id.sub_title);
+        sub_title.setVisibility(View.VISIBLE);
+        txt_title.setText("Movie Buff");
+        sub_title.setText("Find movie theatre nearby");
+        hamburger=mainActivity.findViewById(R.id.hamburger);
         daoHelper = DaoHelper.getInstance(getContext());
         hamburger.setImageDrawable(getResources().getDrawable(R.drawable.ic_baseline_dehaze_24));
 

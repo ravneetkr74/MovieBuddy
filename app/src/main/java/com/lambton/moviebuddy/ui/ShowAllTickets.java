@@ -10,7 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.lambton.moviebuddy.MainActivity;
 import com.lambton.moviebuddy.R;
 import com.lambton.moviebuddy.ui.Adapter.MovieReviewAdapter;
 import com.lambton.moviebuddy.ui.Adapter.ReviewAdapter;
@@ -27,6 +29,9 @@ public class ShowAllTickets extends Fragment {
     List<Tickets> list;
     ImageView hamburger;
     DaoHelper daoHelper;
+    TextView txt_title,sub_title;
+
+    MainActivity mainActivity;
     public ShowAllTickets() {
         // Required empty public constructor
     }
@@ -43,7 +48,13 @@ public class ShowAllTickets extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view=inflater.inflate(R.layout.fragment_show_all_tickets, container, false);
-        hamburger=(ImageView) view.findViewById(R.id.hamburger);
+        mainActivity=(MainActivity)getActivity();
+        recyclerView=(RecyclerView)view.findViewById(R.id.recyclerview);
+        hamburger=mainActivity.findViewById(R.id.hamburger);
+        txt_title = mainActivity.findViewById(R.id.txt_title);
+        sub_title = mainActivity.findViewById(R.id.sub_title);
+        sub_title.setVisibility(View.GONE);
+        txt_title.setText("My Movie Tickets");
         hamburger.setImageDrawable(getResources().getDrawable(R.drawable.ic_baseline_arrow_back_24));
         hamburger.setOnClickListener(new View.OnClickListener() {
             @Override

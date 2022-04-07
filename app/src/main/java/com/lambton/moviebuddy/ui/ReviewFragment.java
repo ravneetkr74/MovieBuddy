@@ -2,15 +2,19 @@ package com.lambton.moviebuddy.ui;
 
 import android.os.Bundle;
 
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.lambton.moviebuddy.MainActivity;
 import com.lambton.moviebuddy.R;
 import com.lambton.moviebuddy.ui.Adapter.DrawerAdapter;
 import com.lambton.moviebuddy.ui.Adapter.ReviewAdapter;
@@ -27,6 +31,10 @@ public class ReviewFragment extends Fragment {
     ReviewAdapter reviewAdapter;
     List<MoviePojo> drawerModelList;
     ImageView hamburger;
+    MainActivity mainActivity;
+    DrawerLayout drawer;
+    TextView txt_title,sub_title;
+
 
     String title[] = {"The Adam Project", "Blacklight", "The Batman", "Gold","Hotel Transylvania: Transformania","Desperate Riders","Pursuit","Uncharted","The Godfather"};
     Integer titleId[]={696806,823625,414906,760926,585083,928999,871799,335787,238};
@@ -49,8 +57,23 @@ public class ReviewFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_review, container, false);
         recyclerView=(RecyclerView)view.findViewById(R.id.recyclerview);
-        hamburger=(ImageView) view.findViewById(R.id.hamburger);
+        mainActivity=(MainActivity)getActivity();
+
+        hamburger=mainActivity.findViewById(R.id.hamburger);
+        drawer = mainActivity.findViewById(R.id.drawer_layout);
+        txt_title = mainActivity.findViewById(R.id.txt_title);
+        sub_title = mainActivity.findViewById(R.id.sub_title);
+        sub_title.setVisibility(View.GONE);
+        txt_title.setText("All Movies");
         hamburger.setImageDrawable(getResources().getDrawable(R.drawable.ic_baseline_dehaze_24));
+        hamburger.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                drawer.openDrawer(Gravity.LEFT);
+
+            }
+        });
+
 
         drawerModelList = new ArrayList<>();
 

@@ -13,8 +13,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.lambton.moviebuddy.MainActivity;
 import com.lambton.moviebuddy.R;
 import com.lambton.moviebuddy.ui.Adapter.MovieReviewAdapter;
 import com.lambton.moviebuddy.ui.Interface.ApiClient;
@@ -42,7 +44,8 @@ public class MovieReviews extends Fragment {
     ApiInterface api;
     int id=0;
     ImageView hamburger;
-
+    MainActivity mainActivity;
+    TextView txt_title,sub_title;
 
     public MovieReviews() {
         // Required empty public constructor
@@ -64,7 +67,13 @@ public class MovieReviews extends Fragment {
         recyclerView=(RecyclerView)view.findViewById(R.id.recyclerview);
         api= ApiClient.apiInteface();
         id = getArguments().getInt("id");
-        hamburger=(ImageView) view.findViewById(R.id.hamburger);
+        mainActivity=(MainActivity)getActivity();
+
+        hamburger=mainActivity.findViewById(R.id.hamburger);
+        txt_title = mainActivity.findViewById(R.id.txt_title);
+        sub_title = mainActivity.findViewById(R.id.sub_title);
+        sub_title.setVisibility(View.GONE);
+        txt_title.setText("Movie Reviews");
         hamburger.setImageDrawable(getResources().getDrawable(R.drawable.ic_baseline_arrow_back_24));
         hamburger.setOnClickListener(new View.OnClickListener() {
             @Override

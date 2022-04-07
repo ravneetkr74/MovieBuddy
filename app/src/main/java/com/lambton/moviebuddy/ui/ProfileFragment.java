@@ -46,6 +46,7 @@ Bitmap image;
 DaoHelper daoHelper;
 Boolean from=false;
 TextView name;
+    TextView txt_title,sub_title;
 MainActivity mainActivity;
     ImageView hamburger;
 
@@ -71,11 +72,16 @@ MainActivity mainActivity;
         first_name=(EditText) view.findViewById(R.id.first_name);
         last_name=(EditText) view.findViewById(R.id.last_name);
         save=(Button) view.findViewById(R.id.save);
-        hamburger=(ImageView) view.findViewById(R.id.hamburger);
 
         mainActivity=(MainActivity)getActivity();
         main_img = mainActivity.findViewById(R.id.main_img);
         name = mainActivity.findViewById(R.id.name);
+        hamburger=mainActivity.findViewById(R.id.hamburger);
+        txt_title = mainActivity.findViewById(R.id.txt_title);
+        sub_title = mainActivity.findViewById(R.id.sub_title);
+        sub_title.setVisibility(View.GONE);
+        txt_title.setText("Profile");
+
         hamburger.setImageDrawable(getResources().getDrawable(R.drawable.ic_baseline_dehaze_24));
         daoHelper = DaoHelper.getInstance(getContext());
         profile_img.setOnClickListener(new View.OnClickListener() {

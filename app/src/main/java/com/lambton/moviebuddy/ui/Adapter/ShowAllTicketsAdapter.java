@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,13 +27,15 @@ public class ShowAllTicketsAdapter extends RecyclerView.Adapter<ShowAllTicketsAd
     @NonNull
     @Override
     public ShowAllTicketsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.movie_reviewitem,parent,false);
+        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.showtickets_item,parent,false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ShowAllTicketsAdapter.ViewHolder holder, int position) {
-
+        holder.name.setText(list.get(position).getMovie_name());
+        holder.quantity.setText(""+list.get(position).getQuantity());
+        holder.time.setText(""+list.get(position).getTime());
     }
 
     @Override
@@ -41,8 +44,12 @@ public class ShowAllTicketsAdapter extends RecyclerView.Adapter<ShowAllTicketsAd
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+        TextView name,quantity,time;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            name = (TextView) itemView.findViewById(R.id.name);
+            quantity = (TextView) itemView.findViewById(R.id.quantity);
+            time = (TextView) itemView.findViewById(R.id.time);
         }
     }
 }
